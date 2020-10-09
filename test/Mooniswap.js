@@ -3,7 +3,7 @@ const { expect } = require('chai');
 
 const money = {
     ether,
-    eth: ether,
+    bnb: ether,
     zero: ether('0'),
     oneWei: ether('0').addn(1),
     wbnb: ether,
