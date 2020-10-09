@@ -36,7 +36,7 @@ jobs:
       - run: yarn
       - run: yarn lint
       - run: yarn test
-      - run: yarn coveralls
+      # - run: yarn coveralls
       #- run: yarn codechecks
       #  env:
       #    CC_SECRET: ${{ secrets.CODECHECKS_SECRET }}
