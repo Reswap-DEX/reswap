@@ -23,7 +23,8 @@ module.exports = {
             showTimeSpent: true,
             excludeContracts: ['Migrations', 'mocks']
         }
-    },
+    }
+    /*
     networks: {
         development: {
           provider: () => new HDWalletProvider(mnemonic, "https://data-seed-prebsc-1-s1.binance.org:8545"),
@@ -45,4 +46,5 @@ module.exports = {
           // timeoutBlocks: - if a transaction is not mined, keep waiting for this number of blocks (default is 50)
         }
       }
+      */
 };
