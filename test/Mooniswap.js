@@ -122,7 +122,7 @@ contract('Reswap', function ([_, wallet1, wallet2]) {
             await this.DAI.approve(this.mooniswap.address, money.dai('270'), { from: wallet1 });
             await this.DAI.approve(this.mooniswap.address, money.dai('2700'), { from: wallet2 });
 
-            await this.mooniswap.deposit([money.eth('1'), money.dai('270')], [money.zero, money.zero], { value: money.eth('1'), from: wallet1 });
+            await this.mooniswap.deposit([money.bnb('1'), money.dai('270')], [money.zero, money.zero], { value: money.bnb('1'), from: wallet1 });
             expect(await this.mooniswap.balanceOf(wallet1)).to.be.bignumber.equal(money.dai('270'));
             await timeIncreaseTo((await time.latest()).add(await this.mooniswap.decayPeriod()));
         });
@@ -130,15 +130,15 @@ contract('Reswap', function ([_, wallet1, wallet2]) {
         it('should support BNB to DAI', async function () {
             const wethAdditionBalance = await this.mooniswap.getBalanceForAddition(constants.ZERO_ADDRESS);
             const daiRemovalBalance = await this.mooniswap.getBalanceForRemoval(this.DAI.address);
-            const result = await this.mooniswap.getReturn(constants.ZERO_ADDRESS, this.DAI.address, money.eth('1'));
-            expect(wethAdditionBalance).to.be.bignumber.equal(money.eth('1'));
+            const result = await this.mooniswap.getReturn(constants.ZERO_ADDRESS, this.DAI.address, money.bnb('1'));
+            expect(wethAdditionBalance).to.be.bignumber.equal(money.bnb('1'));
             expect(daiRemovalBalance).to.be.bignumber.equal(money.dai('270'));
             expect(result).to.be.bignumber.equal(money.dai('135'));
 
             const received = await trackReceivedToken(
                 this.DAI,
                 wallet2,
-                () => this.mooniswap.swap(constants.ZERO_ADDRESS, this.DAI.address, money.eth('1'), money.zero, constants.ZERO_ADDRESS, { value: money.eth('1'), from: wallet2 }),
+                () => this.mooniswap.swap(constants.ZERO_ADDRESS, this.DAI.address, money.bnb('1'), money.zero, constants.ZERO_ADDRESS, { value: money.bnb('1'), from: wallet2 }),
             );
             expect(received).to.be.bignumber.equal(money.dai('135'));
         });
@@ -148,15 +148,15 @@ contract('Reswap', function ([_, wallet1, wallet2]) {
             const ethRemovalBalance = await this.mooniswap.getBalanceForRemoval(constants.ZERO_ADDRESS);
             const result = await this.mooniswap.getReturn(this.DAI.address, constants.ZERO_ADDRESS, money.dai('270'));
             expect(daiAdditionBalance).to.be.bignumber.equal(money.dai('270'));
-            expect(ethRemovalBalance).to.be.bignumber.equal(money.eth('1'));
-            expect(result).to.be.bignumber.equal(money.eth('0.5'));
+            expect(ethRemovalBalance).to.be.bignumber.equal(money.bnb('1'));
+            expect(result).to.be.bignumber.equal(money.bnb('0.5'));
 
             const received = await trackReceivedToken(
                 constants.ZERO_ADDRESS,
                 wallet2,
                 () => this.mooniswap.swap(this.DAI.address, constants.ZERO_ADDRESS, money.dai('270'), money.zero, constants.ZERO_ADDRESS, { from: wallet2 }),
             );
-            expect(received).to.be.bignumber.equal(money.eth('0.5'));
+            expect(received).to.be.bignumber.equal(money.bnb('0.5'));
         });
     });
 
@@ -616,13 +616,13 @@ contract('Reswap', function ([_, wallet1, wallet2]) {
             });
 
             it('should swap with fee', async function () {
-                const result = await this.mooniswap.getReturn(this.WBNB.address, this.DAI.address, money.eth('1'));
+                const result = await this.mooniswap.getReturn(this.WBNB.address, this.DAI.address, money.bnb('1'));
                 expect(result).to.be.bignumber.equal(money.dai('135'));
 
                 const factory = await Factory.at(await this.mooniswap.factory.call());
                 await factory.setFee(money.wbnb('0.003'));
 
-                const result2 = await this.mooniswap.getReturn(this.WBNB.address, this.DAI.address, money.eth('1'));
+                const result2 = await this.mooniswap.getReturn(this.WBNB.address, this.DAI.address, money.bnb('1'));
                 expect(result2).to.be.bignumber.equal('134797195793690535803');
 
                 const received1 = await trackReceivedToken(
