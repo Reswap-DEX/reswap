@@ -2,7 +2,7 @@
 
 pragma solidity ^0.6.0;
 
-import "../Mooniswap.sol";
+import "../Reswap.sol";
 
 
 contract FactoryMock is IFactory {
@@ -18,9 +18,9 @@ contract FactoryMock is IFactory {
 }
 
 
-contract MooniswapMock is Mooniswap {
+contract ReswapMock is Reswap {
     constructor(IERC20[] memory assets, string memory name, string memory symbol)
-        public Mooniswap(assets, name, symbol)
+        public Reswap(assets, name, symbol)
     {
         factory = new FactoryMock();
     }

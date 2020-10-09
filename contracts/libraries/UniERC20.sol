@@ -11,12 +11,12 @@ library UniERC20 {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    function isETH(IERC20 token) internal pure returns(bool) {
+    function isBNB(IERC20 token) internal pure returns(bool) {
         return (address(token) == address(0));
     }
 
     function uniBalanceOf(IERC20 token, address account) internal view returns (uint256) {
-        if (isETH(token)) {
+        if (isBNB(token)) {
             return account.balance;
         } else {
             return token.balanceOf(account);
@@ -25,7 +25,7 @@ library UniERC20 {
 
     function uniTransfer(IERC20 token, address payable to, uint256 amount) internal {
         if (amount > 0) {
-            if (isETH(token)) {
+            if (isBNB(token)) {
                 to.transfer(amount);
             } else {
                 token.safeTransfer(to, amount);
@@ -35,7 +35,7 @@ library UniERC20 {
 
     function uniTransferFromSenderToThis(IERC20 token, uint256 amount) internal {
         if (amount > 0) {
-            if (isETH(token)) {
+            if (isBNB(token)) {
                 require(msg.value >= amount, "UniERC20: not enough value");
                 if (msg.value > amount) {
                     // Return remainder if exist
@@ -48,8 +48,8 @@ library UniERC20 {
     }
 
     function uniSymbol(IERC20 token) internal view returns(string memory) {
-        if (isETH(token)) {
-            return "ETH";
+        if (isBNB(token)) {
+            return "BNB";
         }
 
         (bool success, bytes memory data) = address(token).staticcall{ gas: 20000 }(

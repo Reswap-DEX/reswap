@@ -4,10 +4,10 @@ pragma solidity ^0.6.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./libraries/UniERC20.sol";
-import "./Mooniswap.sol";
+import "./Reswap.sol";
 
 
-contract MooniFactory is Ownable {
+contract ReswapFactory is Ownable {
     using UniERC20 for IERC20;
 
     event Deployed(
@@ -19,11 +19,11 @@ contract MooniFactory is Ownable {
     uint256 public constant MAX_FEE = 0.003e18; // 0.3%
 
     uint256 public fee;
-    Mooniswap[] public allPools;
-    mapping(Mooniswap => bool) public isPool;
-    mapping(IERC20 => mapping(IERC20 => Mooniswap)) public pools;
+    Reswap[] public allPools;
+    mapping(Reswap => bool) public isPool;
+    mapping(IERC20 => mapping(IERC20 => Reswap)) public pools;
 
-    function getAllPools() external view returns(Mooniswap[] memory) {
+    function getAllPools() external view returns(Reswap[] memory) {
         return allPools;
     }
 
@@ -32,9 +32,9 @@ contract MooniFactory is Ownable {
         fee = newFee;
     }
 
-    function deploy(IERC20 tokenA, IERC20 tokenB) public returns(Mooniswap pool) {
+    function deploy(IERC20 tokenA, IERC20 tokenB) public returns(Reswap pool) {
         require(tokenA != tokenB, "Factory: not support same tokens");
-        require(pools[tokenA][tokenB] == Mooniswap(0), "Factory: pool already exists");
+        require(pools[tokenA][tokenB] == Reswap(0), "Factory: pool already exists");
 
         (IERC20 token1, IERC20 token2) = sortTokens(tokenA, tokenB);
         IERC20[] memory tokens = new IERC20[](2);
@@ -44,10 +44,10 @@ contract MooniFactory is Ownable {
         string memory symbol1 = token1.uniSymbol();
         string memory symbol2 = token2.uniSymbol();
 
-        pool = new Mooniswap(
+        pool = new Reswap(
             tokens,
-            string(abi.encodePacked("Mooniswap V1 (", symbol1, "-", symbol2, ")")),
-            string(abi.encodePacked("MOON-V1-", symbol1, "-", symbol2))
+            string(abi.encodePacked("Reswap V1 (", symbol1, "-", symbol2, ")")),
+            string(abi.encodePacked("RSWAP-V1-", symbol1, "-", symbol2))
         );
 
         pool.transferOwnership(owner());

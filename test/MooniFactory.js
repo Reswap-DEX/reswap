@@ -1,17 +1,17 @@
 const { expectRevert } = require('@openzeppelin/test-helpers');
 const { expect } = require('chai');
 
-const Mooniswap = artifacts.require('Mooniswap');
-const MooniFactory = artifacts.require('MooniFactory');
+const Reswap = artifacts.require('Reswap');
+const ReswapFactory = artifacts.require('ReswapFactory');
 const TokenWithBytes32SymbolMock = artifacts.require('TokenWithBytes32SymbolMock');
 const TokenWithStringSymbolMock = artifacts.require('TokenWithStringSymbolMock');
 const TokenWithBytes32CAPSSymbolMock = artifacts.require('TokenWithBytes32CAPSSymbolMock');
 const TokenWithStringCAPSSymbolMock = artifacts.require('TokenWithStringCAPSSymbolMock');
 const TokenWithNoSymbolMock = artifacts.require('TokenWithNoSymbolMock');
 
-contract('MooniFactory', function ([_, wallet1, wallet2]) {
+contract('ReswapFactory', function ([_, wallet1, wallet2]) {
     beforeEach(async function () {
-        this.factory = await MooniFactory.new();
+        this.factory = await ReswapFactory.new();
     });
 
     describe('Symbol', async function () {
@@ -20,13 +20,13 @@ contract('MooniFactory', function ([_, wallet1, wallet2]) {
             const token2 = await TokenWithStringSymbolMock.new('XYZ');
             await this.factory.deploy(token1.address, token2.address);
 
-            const pool = await Mooniswap.at(await this.factory.pools(token1.address, token2.address));
+            const pool = await Reswap.at(await this.factory.pools(token1.address, token2.address));
             if (token1.address.localeCompare(token2.address, undefined, { sensitivity: 'base' }) < 0) {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-ABC-XYZ');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (ABC-XYZ)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-ABC-XYZ');
+                expect(await pool.name()).to.be.equal('Reswap V1 (ABC-XYZ)');
             } else {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-XYZ-ABC');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (XYZ-ABC)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-XYZ-ABC');
+                expect(await pool.name()).to.be.equal('Reswap V1 (XYZ-ABC)');
             }
         });
 
@@ -35,13 +35,13 @@ contract('MooniFactory', function ([_, wallet1, wallet2]) {
             const token2 = await TokenWithStringSymbolMock.new('XYZ');
             await this.factory.deploy(token1.address, token2.address);
 
-            const pool = await Mooniswap.at(await this.factory.pools(token1.address, token2.address));
+            const pool = await Reswap.at(await this.factory.pools(token1.address, token2.address));
             if (token1.address.localeCompare(token2.address, undefined, { sensitivity: 'base' }) < 0) {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-012345678901234567890123456789123-XYZ');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (012345678901234567890123456789123-XYZ)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-012345678901234567890123456789123-XYZ');
+                expect(await pool.name()).to.be.equal('Reswap V1 (012345678901234567890123456789123-XYZ)');
             } else {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-XYZ-012345678901234567890123456789123');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (XYZ-012345678901234567890123456789123)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-XYZ-012345678901234567890123456789123');
+                expect(await pool.name()).to.be.equal('Reswap V1 (XYZ-012345678901234567890123456789123)');
             }
         });
 
@@ -50,13 +50,13 @@ contract('MooniFactory', function ([_, wallet1, wallet2]) {
             const token2 = await TokenWithStringSymbolMock.new('XYZ');
             await this.factory.deploy(token1.address, token2.address);
 
-            const pool = await Mooniswap.at(await this.factory.pools(token1.address, token2.address));
+            const pool = await Reswap.at(await this.factory.pools(token1.address, token2.address));
             if (token1.address.localeCompare(token2.address, undefined, { sensitivity: 'base' }) < 0) {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-' + token1.address.toLowerCase() + '-XYZ');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (' + token1.address.toLowerCase() + '-XYZ)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-' + token1.address.toLowerCase() + '-XYZ');
+                expect(await pool.name()).to.be.equal('Reswap V1 (' + token1.address.toLowerCase() + '-XYZ)');
             } else {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-XYZ-' + token1.address.toLowerCase());
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (XYZ-' + token1.address.toLowerCase() + ')');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-XYZ-' + token1.address.toLowerCase());
+                expect(await pool.name()).to.be.equal('Reswap V1 (XYZ-' + token1.address.toLowerCase() + ')');
             }
         });
 
@@ -65,13 +65,13 @@ contract('MooniFactory', function ([_, wallet1, wallet2]) {
             const token2 = await TokenWithStringSymbolMock.new('XYZ');
             await this.factory.deploy(token1.address, token2.address);
 
-            const pool = await Mooniswap.at(await this.factory.pools(token1.address, token2.address));
+            const pool = await Reswap.at(await this.factory.pools(token1.address, token2.address));
             if (token1.address.localeCompare(token2.address, undefined, { sensitivity: 'base' }) < 0) {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-' + token1.address.toLowerCase() + '-XYZ');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (' + token1.address.toLowerCase() + '-XYZ)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-' + token1.address.toLowerCase() + '-XYZ');
+                expect(await pool.name()).to.be.equal('Reswap V1 (' + token1.address.toLowerCase() + '-XYZ)');
             } else {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-XYZ-' + token1.address.toLowerCase());
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (XYZ-' + token1.address.toLowerCase() + ')');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-XYZ-' + token1.address.toLowerCase());
+                expect(await pool.name()).to.be.equal('Reswap V1 (XYZ-' + token1.address.toLowerCase() + ')');
             }
         });
 
@@ -80,13 +80,13 @@ contract('MooniFactory', function ([_, wallet1, wallet2]) {
             const token2 = await TokenWithStringSymbolMock.new('XYZ');
             await this.factory.deploy(token1.address, token2.address);
 
-            const pool = await Mooniswap.at(await this.factory.pools(token1.address, token2.address));
+            const pool = await Reswap.at(await this.factory.pools(token1.address, token2.address));
             if (token1.address.localeCompare(token2.address, undefined, { sensitivity: 'base' }) < 0) {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-' + token1.address.toLowerCase() + '-XYZ');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (' + token1.address.toLowerCase() + '-XYZ)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-' + token1.address.toLowerCase() + '-XYZ');
+                expect(await pool.name()).to.be.equal('Reswap V1 (' + token1.address.toLowerCase() + '-XYZ)');
             } else {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-XYZ-' + token1.address.toLowerCase());
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (XYZ-' + token1.address.toLowerCase() + ')');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-XYZ-' + token1.address.toLowerCase());
+                expect(await pool.name()).to.be.equal('Reswap V1 (XYZ-' + token1.address.toLowerCase() + ')');
             }
         });
 
@@ -95,13 +95,13 @@ contract('MooniFactory', function ([_, wallet1, wallet2]) {
             const token2 = await TokenWithStringCAPSSymbolMock.new('caps2');
             await this.factory.deploy(token1.address, token2.address);
 
-            const pool = await Mooniswap.at(await this.factory.pools(token1.address, token2.address));
+            const pool = await Reswap.at(await this.factory.pools(token1.address, token2.address));
             if (token1.address.localeCompare(token2.address, undefined, { sensitivity: 'base' }) < 0) {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-caps1-caps2');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (caps1-caps2)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-caps1-caps2');
+                expect(await pool.name()).to.be.equal('Reswap V1 (caps1-caps2)');
             } else {
-                expect(await pool.symbol()).to.be.equal('MOON-V1-caps2-caps1');
-                expect(await pool.name()).to.be.equal('Mooniswap V1 (caps2-caps1)');
+                expect(await pool.symbol()).to.be.equal('RSWAP-V1-caps2-caps1');
+                expect(await pool.name()).to.be.equal('Reswap V1 (caps2-caps1)');
             }
         });
     });
