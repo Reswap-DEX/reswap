@@ -1,12 +1,12 @@
 # Reswap
 
-[![Build Status](https://github.com/CryptoManiacsZone/mooniswap/workflows/CI/badge.svg)](https://github.com/CryptoManiacsZone/mooniswap/actions)
-[![Coverage Status](https://coveralls.io/repos/github/CryptoManiacsZone/mooniswap/badge.svg?branch=master)](https://coveralls.io/github/CryptoManiacsZone/mooniswap?branch=master)
+[![Build Status](https://github.com/Reswap-DEX/reswap/workflows/CI/badge.svg)](https://github.com/Reswap-DEX/reswap/actions)
+[![Coverage Status](https://coveralls.io/repos/github/Reswap-DEX/mooniswap/badge.svg?branch=master)](https://coveralls.io/github/Reswap-DEX/reswap?branch=master)
 
-AMM with a beautiful mind
+AMM with a beautiful mind, Forked from Mooniswap
 
-## Factory Address
-[https://etherscan.io/address/0x71CD6666064C3A1354a3B4dca5fA1E2D3ee7D303](https://etherscan.io/address/0x71CD6666064C3A1354a3B4dca5fA1E2D3ee7D303)
+<!-- ## Factory Address
+[https://etherscan.io/address/0x71CD6666064C3A1354a3B4dca5fA1E2D3ee7D303](https://etherscan.io/address/0x71CD6666064C3A1354a3B4dca5fA1E2D3ee7D303) -->
 
 ## Swap
 ```solidity
