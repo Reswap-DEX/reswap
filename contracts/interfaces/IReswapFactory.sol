@@ -1,5 +1,6 @@
 pragma solidity ^0.6.0;
 interface IReswapFactory {
+  // solhint-disable-next-line
   function MAX_FEE (  ) external view returns ( uint256 );
   function allPools ( uint256 ) external view returns ( address );
   function fee (  ) external view returns ( uint256 );
